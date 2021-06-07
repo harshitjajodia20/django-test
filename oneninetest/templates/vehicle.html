@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+  <title>Select Table</title>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      }
+      form {
+      border: 5px solid #f1f1f1;
+      
+      }
+      table{
+    border: 5px solid black;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+      }
+    td{
+    border: 5px solid #f1f1f1;
+      }
+    th{
+    border: 5px solid #f1f1f1;
+      }
+    tr{
+    border: 5px solid #f1f1f1;
+      }
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      {% comment %} display: inline-block; {% endcomment %}
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      a{
+          border: 1px solid black;
+          background-color: #f1f1f1;
+      }
+      .icon {
+      font-size: 110px;
+      display: flex;
+      justify-content: center;
+      color: #4286f4;
+      }
+      button {
+      background-color: #4286f4;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grab;
+      width: 48%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: center;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form action={% url 'vehicle' %} method="POST">
+    {% csrf_token %}
+      <h1>Choose tables form owner db</h1>
+      <div style="text-align: center">
+            <label style="text-align: center" >Tables</label>
+                  <select name="table" class="form-control">
+                    <option selected="true" disabled="disabled">Owner Table's (All)</option>
+                    <option value="Owner">Owner</option>
+                    <option value="Vehicle">Vehicle</option>
+                  </select>
+                  <br>
+                  <br>
+                  <br>
+                    <input type="submit" value="submit" class="btn btn-secondary btn-block" style="text-align: center">
+                    <a href="{% url 'index'%}"
+              class="btn btn-secondary btn-block"
+              >Back to login</a
+            >
+        </div>
+
+
+    </form>
+    <br>
+    
+    {%if Owner is not none %}
+          <h1>Owner table</h1>
+    <table>
+    <tr>
+    <th> vehicle Owned </th>
+    <th> Owner Name </th>
+    <th> Owner Address </th>
+    <th> Vehicle Price </th>
+    </tr>
+    {% for owner in Owner %}
+    <tr>
+    <td>{{ owner.vehicleOwned}}</td>
+    <td>{{owner.ownername}}</td>
+        <td>{{owner.ownerAddress}}</td>
+        <td>{{owner.vehicle_price}} </td>
+
+    </tr>
+{% endfor %}
+</table>
+    {%endif%}
+
+
+    {%if Vehicle is not none %}
+          <h1>Owner table</h1>
+    <table>
+    <tr>
+    <th> Vehicle Name </th>
+    <th> Vehicle Model </th>
+    <th> Vehicle Company </th>
+    <th> Vehicle Purchase Date </th>
+    </tr>
+    {% for vehicle in Vehicle %}
+    <tr>
+    <td>{{ vehicle.vehicle_name}}</td>
+    <td>{{vehicle.vehicle_model}}</td>
+        <td>{{vehicle.vehicle_company}}</td>
+        <td>{{vehicle.vehicle_purchase_date}} </td>
+
+    </tr>
+{% endfor %}
+</table>
+    {%endif%}
+
+  </body>
+</html>
